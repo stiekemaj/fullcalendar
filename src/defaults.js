@@ -28,27 +28,29 @@ var defaults = {
 	endParam: 'end',
 	
 	// time formats
-	titleFormat: {
-		month: 'MMMM yyyy',
-		week: "MMM d[ yyyy]{ '&#8212;'[ MMM] d yyyy}",
-		day: 'dddd, MMM d, yyyy'
-	},
-	columnFormat: {
-		month: 'ddd',
-		week: 'ddd M/d',
-		day: 'dddd M/d'
-	},
-	timeFormat: { // for event elements
-		'': 'h(:mm)t' // default
-	},
+    titleFormat: {
+        month: 'MMMM yyyy', // September 2009
+        week: "d [MMM] [ yyyy]{ '-' d MMM yyyy}", // 7 - 13 sep 2009, 30 sep - 6 okt 2013
+        day: 'dddd d MMMM yyyy'                  // dinsdag 8 september 2009
+    },
+    columnFormat: {
+        month: 'ddd',
+        week: 'ddd d-M',
+        day: ''
+    },
+    timeFormat: { // for event elements
+        agendaDay: 'H:mm { - H:mm}',
+        agendaWeek: 'H:mm { - H:mm}',
+        '': 'H:mm' // default
+    },
 	
 	// locale
 	isRTL: false,
 	firstDay: 0,
-	monthNames: ['January','February','March','April','May','June','July','August','September','October','November','December'],
-	monthNamesShort: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-	dayNames: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
-	dayNamesShort: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+    monthNames: ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
+    monthNamesShort: ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
+    dayNames: ['Zondag','Maandag','Dinsdag','Woensdag','Donderdag','Vrijdag','Zaterdag'],
+    dayNamesShort: ['Zo', 'Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za'],
 	buttonText: {
 		prev: "<span class='fc-text-arrow'>&lsaquo;</span>",
 		next: "<span class='fc-text-arrow'>&rsaquo;</span>",

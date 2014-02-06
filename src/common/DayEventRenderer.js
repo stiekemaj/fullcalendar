@@ -124,7 +124,7 @@ function DayEventRenderer() {
 		html = buildHTML(segments);
 
 		// render the HTML. innerHTML is considerably faster than jQuery's .html()
-		renderContainer[0].innerHTML = html;
+        $(renderContainer[0]).html(html);
 
 		// retrieve the individual elements
 		elements = renderContainer.children();

@@ -238,7 +238,7 @@ function AgendaEventRenderer() {
 			html += slotSegHtml(event, seg);
 		}
 
-		slotSegmentContainer[0].innerHTML = html; // faster than html()
+        $(slotSegmentContainer[0]).html(html);
 		eventElements = slotSegmentContainer.children();
 		
 		// retrieve elements, run through eventRender callback, bind event handlers
@@ -293,13 +293,15 @@ function AgendaEventRenderer() {
 				height = Math.max(0, seg.outerHeight - seg.vsides);
 				eventElement[0].style.height = height + 'px';
 				event = seg.event;
-				if (seg.contentTop !== undefined && height - seg.contentTop < 10) {
-					// not enough room for title, put it in the time (TODO: maybe make both display:inline instead)
-					eventElement.find('div.fc-event-time')
-						.text(formatDate(event.start, opt('timeFormat')) + ' - ' + event.title);
-					eventElement.find('div.fc-event-title')
-						.remove();
-				}
+                if (seg.contentTop !== undefined && height - seg.contentTop < 10) {
+                    // not enough room for title, put it in the time (TODO: maybe make both display:inline instead)
+                    // bugfix: html() gebruiken ipv text(), aangezien anders dingen die in een eventRender method zijn toegevoegd weer verdwijnen als het element binnen een ander element staat
+                    var titleHtml = eventElement.find('div.fc-event-title').html();
+                    eventElement.find('div.fc-event-time')
+                        .html(formatDate(event.start, opt('timeFormat')) + ' - ' + formatDate(event.end, opt('timeFormat'))  + ' ' + titleHtml);
+                    eventElement.find('div.fc-event-title')
+                        .remove();
+                }
 				trigger('eventAfterRender', event, event, eventElement);
 			}
 		}
@@ -700,9 +702,11 @@ function placeSlotSegs(segs) {
 			computeSlotSegPressures(level0[i]);
 		}
 
-		for (i=0; i<level0.length; i++) {
-			computeSlotSegCoords(level0[i], 0, 0);
-		}
+        for (i=0; i<level0.length; i++) {
+            // 2e parameter bepaalt de verhouding van de left uitlijning van inner events (events in andere events) ten opzichte van de breedte van het blok
+            // hiermee worden inner events iets verder naar links opgeschoven
+            computeSlotSegCoords(level0[i], -.68, 0);
+        }
 	}
 
 	return flattenSlotSegLevels(levels);
